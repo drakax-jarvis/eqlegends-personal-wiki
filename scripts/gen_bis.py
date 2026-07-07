@@ -5,22 +5,21 @@ DB = '/home/hermes/eq-legends-wiki/eqlegends.db'
 OUT_DIR = '/home/hermes/eq-legends-wiki/pages/'
 
 def link(name, zone=""):
-    """Generate the correct link for an item, based on verified_links DB table."""
+    """Generate the correct link for an item with max level view."""
     conn = sqlite3.connect(DB)
     row = conn.execute("SELECT url FROM verified_links WHERE item_name=? AND source='eqlegendstools' AND status_code=200", (name,)).fetchone()
     if row:
-        conn.close(); return row[0]
+        conn.close(); return row[0].rstrip('/') + '/?level=10'
     
     row = conn.execute("SELECT url FROM verified_links WHERE item_name=? AND source='eqlwiki' AND status_code=200", (name,)).fetchone()
     if row:
-        conn.close(); return row[0]
+        conn.close(); return row[0] + '?level=10'
     
     conn.close()
-    # Fallback to zone page on eqlwiki if available
+    # Fallback to zone page
     if zone and zone not in ("Vendor", "Unknown"):
         z = zone.replace(' ', '_')
         return f'https://eqlwiki.com/{z}'
-    # Last resort: no link (item name only - doesn't exist on either site)
     return None
 
 def eq(name):
@@ -94,6 +93,14 @@ def calc_score(item_row, combo_name, tier):
     if combo_name in ["Dave","Brian","Jessy"]:
         score += HASTE.get(item_row['name'], 0)
     if item_row['on_path']: score += 5
+    # Vendor penalty
+    try:
+        zone = item_row['zone']
+        if zone == 'Vendor' or zone == 'Unknown':
+            score -= 20
+    except (KeyError, IndexError):
+        pass
+    
     return score
 
 def stat_str(r, combo_name):
