@@ -196,7 +196,7 @@ def build_slot_section(combo_name, tier):
                     hm = h + 10
                     tip_parts.append(f'Haste {hm}%')
             
-            tip_text = ' | '.join(tip_parts) + ' at (+10)'
+            tip_text = ' | '.join(tip_parts)
             st_display = f'<span class="stat" title="{tip_text}">{st}</span>'
             
             zo = item['zone']
