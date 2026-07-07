@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EverQuest Legends - Class Combo Wiki</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="sidebar">
+    <div class="sidebar-header"><h1>EQ Legends</h1><span class="subtitle">Class Combo Wiki</span></div>
+    <div class="sidebar-nav">
+        <div class="nav-section"><h3>Getting Started</h3><ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages/game-overview.html">Game Overview</a></li>
+            <li><a href="pages/multiclassing.html">Multiclassing Guide</a></li>
+            <li><a href="pages/leveling.html">Leveling 1-50</a></li>
+            <li><a href="pages/ritual-guide.html">Ritual Travel</a></li>
+            <li><a href="pages/race-unlock.html">Race Unlock</a></li>
+            <li><a href="pages/quests.html">Quests</a></li>
+            <li><a href="pages/clickies.html">Clickies</a></li>
+            <li><a href="pages/exaltations.html">Exaltations</a></li>
+            <li><a href="pages/patch-notes.html">Patch Notes</a></li>
+        </ul></div>
+        <div class="nav-section"><h3>Dave's Combo</h3><ul>
+            <li><a href="pages/bard.html">Bard</a></li>
+            <li><a href="pages/paladin.html">Paladin</a></li>
+            <li><a href="pages/enchanter.html">Enchanter</a></li>
+            <li><a href="pages/dave-combo.html">Bard/Pal/Enc Guide</a></li>
+            <li><a href="pages/dave-bis.html">Dave's BiS</a></li>
+        </ul></div>
+        <div class="nav-section"><h3>Christy's Combo</h3><ul>
+            <li><a href="pages/cleric.html">Cleric</a></li>
+            <li><a href="pages/necromancer.html">Necromancer</a></li>
+            <li><a href="pages/wizard.html">Wizard</a></li>
+            <li><a href="pages/christy-combo.html">Christy's Guide</a></li>
+            <li><a href="pages/christy-bis.html">Christy's BiS</a></li>
+        </ul></div>
+        <div class="nav-section"><h3>Brian's Combo</h3><ul>
+            <li><a href="pages/shaman-sk-monk.html">SK/Shaman/Monk Guide</a></li>
+            <li><a href="pages/shadow-knight.html">Shadow Knight</a></li>
+            <li><a href="pages/shaman.html">Shaman</a></li>
+            <li><a href="pages/monk.html">Monk</a></li>
+            <li><a href="pages/brian-bis.html">Brian's BiS</a></li>
+        </ul></div>
+        <div class="nav-section"><h3>Jessy's Combo</h3><ul>
+            <li><a href="pages/paladin-bard-berserker.html">Pal/Bard/Berserker Guide</a></li>
+            <li><a href="pages/paladin.html">Paladin</a></li>
+            <li><a href="pages/bard.html">Bard</a></li>
+            <li><a href="pages/berserker.html">Berserker</a></li>
+            <li><a href="pages/jessy-bis.html">Jessy's BiS</a></li>
+        </ul></div>
+    </div>
+    <div class="sidebar-footer"><p>Live Launch: July 28, 2026 | Class Combo Wiki</p></div>
+</nav>
+
+    <main class="content">
+        <div class="hero">
+        <div id="countdown" style="background:rgba(212,168,67,0.1);border:1px solid rgba(212,168,67,0.3);border-radius:10px;padding:12px 24px;margin-bottom:20px;display:inline-block;">
+            <span style="font-size:0.85rem;color:#d4a843;font-weight:600;letter-spacing:0.05em;">GAME LAUNCHES IN</span>
+            <div style="font-size:2rem;font-weight:800;color:#e6edf3;font-variant-numeric:tabular-nums;" id="timer">--d --h --m --s</div>
+        </div>
+
+        <div class="patch-note-banner" style="background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);border-radius:10px;padding:10px 20px;margin-bottom:20px;display:inline-block;text-align:left;width:100%;box-sizing:border-box;">
+            <span style="font-size:0.8rem;color:#58a6ff;font-weight:600;letter-spacing:0.05em;">📄 LATEST PATCH</span>
+            <div style="font-size:0.95rem;color:#e6edf3;margin-top:4px;"><strong>June 29, 2026</strong> — Spell Upgrade System, new Stance/Invocation window, Promise Renewal rework, Enchanter changes, Najena fixes. <a href="pages/patch-notes.html" style="color:#58a6ff;text-decoration:underline;">Read full notes →</a></div>
+        </div>
+
+        <script>
+        (function(){
+            const target = new Date('2026-07-28T19:00:00Z'); // Noon PT / 3pm ET — Live Launch
+            function tick() {
+                const now = new Date();
+                const diff = target - now;
+                if (diff <= 0) { document.getElementById('timer').textContent = 'LIVE NOW'; return; }
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                document.getElementById('timer').textContent = `${d}d ${h}h ${m}m ${s}s`;
+            }
+            tick();
+            setInterval(tick, 1000);
+        })();
+        </script>
+        <h1>EverQuest Legends</h1>
+            <p class="hero-subtitle">Class Combo Strategy Wiki</p>
+            <div class="beta-badge">Open Beta July 1</div>
+        </div>
+
+        <section class="welcome">
+            <h2>Welcome, Adventurer</h2>
+            <p>This wiki provides comprehensive breakdowns for two <strong>multiclass combos</strong> in EverQuest Legends — the upcoming reimagined classic EQ experience from Game Jawn and Daybreak Games, launching July 28, 2026.</p>
+            <div class="quick-info">
+                <div class="info-card">
+                    <h3>Dave's Combo</h3>
+                    <div class="class-icons">
+                        <span class="class-icon bard">Bard</span>
+                        <span class="plus">+</span>
+                        <span class="class-icon paladin">Paladin</span>
+                        <span class="plus">+</span>
+                        <span class="class-icon enchanter">Enchanter</span>
+                    </div>
+                    <p>Hybrid tank / support / crowd control</p>
+                    <a href="pages/dave-combo.html" class="btn">View Guide →</a>
+                </div>
+                <div class="info-card">
+                    <h3>Christy's Combo</h3>
+                    <div class="class-icons">
+                        <span class="class-icon cleric">Cleric</span>
+                        <span class="plus">+</span>
+                        <span class="class-icon necromancer">Necromancer</span>
+                        <span class="plus">+</span>
+                        <span class="class-icon wizard">Wizard</span>
+                    </div>
+                    <p>Pure caster / healer / damage trifecta</p>
+                    <a href="pages/christy-combo.html" class="btn">View Guide →</a>
+                        </div>
+            </div>
+        
+        </section>
+
+        <section class="welcome">
+            <h2>Welcome, Jessy</h2>
+            <div class="quick-info">
+                <div class="info-card">
+                    <h3>Jessy's Combo</h3>
+                    <div class="class-icons">
+                        <span class="class-icon" style="background:rgba(255,200,150,0.15);color:#ffc896;padding:4px 12px;border-radius:6px;font-weight:600;font-size:0.9rem;">Paladin</span>
+                        <span class="plus" style="color:#d4a843;font-weight:700;margin:0 8px;">+</span>
+                        <span class="class-icon" style="background:rgba(230,204,119,0.15);color:#e6cc77;padding:4px 12px;border-radius:6px;font-weight:600;font-size:0.9rem;">Bard</span>
+                        <span class="plus" style="color:#d4a843;font-weight:700;margin:0 8px;">+</span>
+                        <span class="class-icon" style="background:rgba(200,80,80,0.15);color:#c85050;padding:4px 12px;border-radius:6px;font-weight:600;font-size:0.9rem;">Berserker</span>
+                    </div>
+                    <p>Holy war machine — tank / support / axe DPS</p>
+                    <a href="pages/paladin-bard-berserker.html" class="btn">View Guide →</a>
+                </div>
+            </div>
+</section>
+
+        <section class="welcome">
+            <h2>Welcome, Brian</h2>
+            <div class="quick-info">
+                <div class="info-card">
+                    <h3>Brian's Combo</h3>
+                    <div class="class-icons">
+                        <span class="class-icon" style="background:rgba(170,120,200,0.15);color:#aa78c8;padding:4px 12px;border-radius:6px;font-weight:600;font-size:0.9rem;">Shadow Knight</span>
+                        <span class="plus" style="color:#d4a843;font-weight:700;margin:0 8px;">+</span>
+                        <span class="class-icon" style="background:rgba(180,210,100,0.15);color:#b4d264;padding:4px 12px;border-radius:6px;font-weight:600;font-size:0.9rem;">Shaman</span>
+                        <span class="plus" style="color:#d4a843;font-weight:700;margin:0 8px;">+</span>
+                        <span class="class-icon" style="background:rgba(240,160,80,0.15);color:#f0a050;padding:4px 12px;border-radius:6px;font-weight:600;font-size:0.9rem;">Monk</span>
+                    </div>
+                    <p>Melee pressure — tank / slow / DPS trifecta</p>
+                    <a href="pages/shaman-sk-monk.html" class="btn">View Guide →</a>
+                </div>
+            </div>
+        </section></div>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Game at a Glance</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🎵 Triple-Class System</h3>
+                    <p>Choose up to 3 classes per character — all abilities active simultaneously. 560 possible combinations from 16 classes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚔️ Stance-Based Combat</h3>
+                    <p>Classic disciplines replaced by 5 stances: Balanced, Offensive, Defensive, Striker, and Berserker.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Gear Upgrade +10</h3>
+                    <p>Upgrade items to +10 via merging duplicates or Motes. Exaltate focus effects, procs, and appearances.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🏰 Classic Norrath</h3>
+                    <p>Pre-Kunark: Antonica, Faydwer, Odus. All original races (15 total), classic art, music, zones, and loot.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎮 Solo to Raid</h3>
+                    <p>Solo-friendly design. Groups up to 4, raids up to 8. Instanced zones. No corpse runs. No XP loss on death.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔄 No Bard Twisting</h3>
+                    <p>Songs activate once and sustain automatically. No more song twisting. Instrument focus items are all/all.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-links">
+            <h2>Quick Links</h2>
+            <div class="links-grid">
+                <a href="https://www.everquestlegends.com/" target="_blank" class="link-card">Official Website</a>
+                <a href="https://eqlwiki.com/Main_Page" target="_blank" class="link-card">EQL Wiki</a>
+                <a href="https://everquestguides.com/legends/" target="_blank" class="link-card">Class Combo Builder</a>
+                <a href="https://eqlbuilds.com/" target="_blank" class="link-card">EQL Builds</a>
+                <a href="https://discord.gg/everquestlegends" target="_blank" class="link-card">Official Discord</a>
+                <a href="https://eqlegendstools.com/" target="_blank" class="link-card">EQ Legends Tools</a>
+                <a href="https://www.eqprogression.com/legends/faq/" target="_blank" class="link-card">Official FAQ</a>
+                <a href="https://help.daybreakgames.com/hc/en-us/articles/52413008844307-EverQuest-Legends-Pre-Order-and-Beta" target="_blank" class="link-card">Pre-Order & Beta</a>
+            </div>
+        </section>
+
+        <footer class="page-footer">
+            <p>Built for Dave & Christy — EverQuest Legends Open Beta July 1, 2026. Data sourced from eqlwiki.com, everquestguides.com, massivelyop.com, Daybreak Games, and the EQ Legends community.</p>
+            <p class="disclaimer">This is an unofficial fan resource. EverQuest Legends is © Daybreak Game Company / Game Jawn.</p>
+        </footer>
+    </main>
+</body>
+</html>

@@ -1,0 +1,13 @@
+eqlegends.db
+__pycache__/
+*.pyc
+.git/
+scripts/equipment_db.py
+scripts/seed_db.py
+scripts/full_seed.py
+scripts/check_links.py
+scripts/fix_links.py
+scripts/import_bis.py
+scripts/import_eql_items.py
+scripts/verify_restrictions.py
+scripts/normalize_sidebar.py

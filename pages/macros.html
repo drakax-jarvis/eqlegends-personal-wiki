@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macros & Combos - EQ Legends Wiki</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="sidebar">
+    <div class="sidebar-header"><h1>EQ Legends</h1><span class="subtitle">Class Combo Wiki</span></div>
+    <div class="sidebar-nav">
+        <div class="nav-section"><h3>Getting Started</h3><ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="game-overview.html">Game Overview</a></li>
+            <li><a href="multiclassing.html">Multiclassing Guide</a></li>
+            <li><a href="leveling.html">Leveling 1-50</a></li>
+            <li><a href="ritual-guide.html">Ritual Travel</a></li>
+            <li><a href="race-unlock.html">Race Unlock</a></li>
+            <li><a href="quests.html">Quests</a></li>
+            <li><a href="clickies.html">Clickies</a></li>
+            <li><a href="exaltations.html">Exaltations</a></li>
+            <li><a href="patch-notes.html">Patch Notes</a></li>
+        </ul></div>
+        <div class="nav-section"><h3>Dave's Combo</h3><ul>
+            <li><a href="bard.html">Bard</a></li>
+            <li><a href="paladin.html">Paladin</a></li>
+            <li><a href="enchanter.html">Enchanter</a></li>
+            <li><a href="dave-combo.html">Bard/Pal/Enc Guide</a></li>
+            <li><a href="dave-bis.html">Dave's BiS</a></li>
+        </ul></div>
+        <div class="nav-section"><h3>Christy's Combo</h3><ul>
+            <li><a href="cleric.html">Cleric</a></li>
+            <li><a href="necromancer.html">Necromancer</a></li>
+            <li><a href="wizard.html">Wizard</a></li>
+            <li><a href="christy-combo.html">Christy's Guide</a></li>
+            <li><a href="christy-bis.html">Christy's BiS</a></li>
+        </ul></div>
+        <div class="nav-section"><h3>Brian's Combo</h3><ul>
+            <li><a href="shaman-sk-monk.html">SK/Shaman/Monk Guide</a></li>
+            <li><a href="shadow-knight.html">Shadow Knight</a></li>
+            <li><a href="shaman.html">Shaman</a></li>
+            <li><a href="monk.html">Monk</a></li>
+            <li><a href="brian-bis.html">Brian's BiS</a></li>
+        </ul></div>
+        <div class="nav-section"><h3>Jessy's Combo</h3><ul>
+            <li><a href="paladin-bard-berserker.html">Pal/Bard/Berserker Guide</a></li>
+            <li><a href="paladin.html">Paladin</a></li>
+            <li><a href="bard.html">Bard</a></li>
+            <li><a href="berserker.html">Berserker</a></li>
+            <li><a href="jessy-bis.html">Jessy's BiS</a></li>
+        </ul></div>
+    </div>
+    <div class="sidebar-footer"><p>Live Launch: July 28, 2026 | Class Combo Wiki</p></div>
+</nav>
+<main class="content">
+<div class="page-content">
+<h1>Macros & Skill Combinations</h1>
+<p class="page-subtitle">Essential macros for EverQuest Legends multiclass gameplay.</p>
+
+<h2>How Macros Work in EQL</h2>
+<p>EverQuest Legends uses the classic EQ macro system with <code>/cast</code>, <code>/pause</code> (in tenths of seconds, NOT seconds!), <code>/alt act</code> (for AAs and stances), <code>/attack</code>, and <code>/pet</code> commands. The pause command uses <strong>tenths of seconds</strong> — <code>/pause 10</code> = 1 second wait.</p>
+
+<div class="info-box warning">
+    <h4>⚠️ Important</h4>
+    <p>EQL also supports a new macro event system. Stances are activated via <code>/alt act [number]</code>. You'll need to check your AA window to find the appropriate stance ability number after creating the character. Casting while moving is possible for many spells/songs. Test each macro before relying on it in combat.</p>
+</div>
+
+<h2>Dave's Macros (Bard/Paladin/Enchanter)</h2>
+
+<h3>1. Opening Rotation</h3>
+<pre><code>/stand
+/attack on
+/alt act 1           # Defensive Stance (check your AA window for number)
+/cast "Stun"
+/pause 2
+/cast "Selos Accelerando"
+/pause 2
+/cast "Mesmerize"    # If adds present</pre></code>
+
+<h3>2. Song Management</h3>
+<p>Bard songs no longer twist — they activate and sustain automatically. Use this macro to set up your default song rotation:</p>
+<pre><code>/cast "Selos Accelerando"         # Run speed
+/pause 2
+/cast "Cassindra's Chorus of Clarity"  # Mana regen
+/pause 2
+/cast "Psalm of Vitality"         # HP regen
+/pause 2
+/cast "Anthem de Arms"            # Attack buff
+/pause 2
+/cast "Warsong of the Valiant"    # Haste</pre></code>
+
+<h3>3. Full CC Lockdown</h3>
+<pre><code>/stopcast
+/alt act 1           # Balanced Stance (non-tanking)
+/cast "Color Flux"   # AE stun
+/pause 3
+/cast "Reoccurring Amnesia"     # AE mez
+/pause 3
+/cast "Mesmerize"    # Single target mez remainder</pre></code>
+
+<h3>4. Charm Combat Pet</h3>
+<pre><code>/target [mobname]
+/cast "Charm"
+/pause 10
+/pet attack
+/pause 2
+/cast "Tashan"
+/pause 2
+/cast "Haste"        # Haste your pet</pre></code>
+
+<h3>5. Emergency Self Heal</h3>
+<pre><code>/alt act 2           # Lay on Hands
+/pause 2
+/cast "Greater Healing"
+/g [Christy'sName] need heals on me!
+/alt act 1           # Back to Defensive stance</pre></code>
+
+<h3>6. Pull & Split</h3>
+<pre><code>/target [mob]
+/cast "Largo's Bewitching"    # Pacify/Lull
+/pause 5
+/cast "Selos Accelerando"     # Speed to retreat
+# OR use Enchanter pacify for longer duration</pre></code>
+
+<h2>Christy's Macros (Cleric/Necromancer/Wizard)</h2>
+
+<h3>1. Main Heal Rotation (Cleric)</h3>
+<pre><code>/alt act 1           # Promise Renewal on tank
+/pause 3
+/cast "Greater Healing"
+/pause 5
+/cast "Divine Armor"
+/pause 3
+/g Promise Renewal cast on [tank]</pre></code>
+
+<h3>2. Sustained DPS (Necro + Wiz)</h3>
+<pre><code># Start with Necro DoTs, then Wiz nuke
+/cast "Disease Cloud"
+/pause 3
+/cast "[EQL Exclusive DoT]"    # Your highest level Necro DoT
+/pause 3
+/cast "Drain"                  # Lifetap
+/pause 3
+/pet attack
+/pause 3
+/cast "Strike of Solusek"      # Wiz nuke (swap names as you level)
+/pause 4
+/cast "Convergence"            # AE nuke if multiple mobs</pre></code>
+
+<h3>3. Emergency Group Save</h3>
+<pre><code>/gtell EVAC!
+/cast "Evacuate"               # Wizard group port to zone line
+# Or use:
+/cast "Word of Healing"        # Cleric group heal (if no time to evac)</pre></code>
+
+<h3>4. Feign Death Pull Safety</h3>
+<pre><code>/attack off
+/cast "Feign Death"
+/pause 8
+/stand
+# Mobs should be back to their spawn points</pre></code>
+
+<h3>5. Travel Macro (Wizard)</h3>
+<pre><code>/cast "Teleport: [City]"       # Port the entire duo to a major city
+# OR:
+/cast "Bind Affinity"          # Set bind point first!
+/cast "Gate"                   # Return to bind</pre></code>
+
+<h3>6. Full Buff Suite</h3>
+<pre><code>/cast "Valor"                  # Cleric HP/AC buff
+/pause 3
+/cast "Symbol of..."           # Cleric stat buff
+/pause 3
+/cast "Lich"                   # Necro mana regen
+/pause 3
+/cast "Shield"                 # Cleric AC buff
+/pause 3
+/cast "Clarity"                # (If Enchanter isn't casting it)
+/g All buffed up</pre></code>
+
+<h2>Duo Coordination Macros</h2>
+<h3>Cross-Tell Macros (Dave → Christy)</h3>
+<pre><code># Dave: "Pulling now"
+/g PULLING! Get ready!
+/cast "Largo's Bewitching"
+
+# Dave: "Adds incoming"
+/g ADDS! Mez incoming!
+/cast "Color Flux"
+/cast "Reoccurring Amnesia"
+
+# Dave: "Need heals - emergency"
+/g NEEEDS HEALS!
+/cast "Lay on Hands"
+
+# Christy: "Healing now"
+/g HEALING!
+/cast "Greater Healing"
+
+# Christy: "OOM"
+/g LOW ON MANA! Regenning...
+/sit</pre></code>
+
+<h2>Stance Macros</h2>
+<pre><code># Defensive Stance (Tanking - Paladin)
+/alt act DEF
+/g Defensive stance active - I'm tanking
+
+# Offensive Stance (DPS Burn - All melee classes)
+/alt act OFF
+/g Offensive stance - DPS burn mode!
+
+# Balanced Stance (Default)
+/alt act BAL
+/g Balanced stance</pre></code>
+
+<h2>Pro Tip: Macro Order</h2>
+<p>When building macros for a multiclass character, always consider which class's spell/ability is being cast. Paladin spells, Enchanter spells, and Bard songs all have separate cooldowns. You can stagger them in a single macro to maximize uptime. For example: Stun (Paladin) → pause → Mesmerize (Enchanter) → pause → Song (Bard) creates a seamless opening rotation.</p>
+</div>
+<footer class="page-footer"><p>Macro syntax based on classic EQ with EQL confirmed changes. Test all macros in beta before full launch.</p></footer>
+</main>
+</body>
+</html>
