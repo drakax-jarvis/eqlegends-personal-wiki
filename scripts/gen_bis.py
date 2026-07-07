@@ -165,7 +165,7 @@ def build_slot_section(combo_name, tier):
             pl = '<span class="conf-eql">ON PATH</span>' if on_path else '<span class="conf-beta">off-path</span>'
             lk = link(item['name'], item['zone'])
             if lk:
-                dp = f'<a href="{lk}" target="_blank"><strong>{item["name"]}</strong></a>'
+                dp = f'<a href="{lk}" target="_blank" title="View {item["name"]} at max level (+10)"><strong>{item["name"]}</strong></a>'
             else:
                 dp = f'<strong>{item["name"]}</strong>'
             st = stat_str(item, combo_name); zo = item['zone']
@@ -288,7 +288,8 @@ def generate():
 .alt a:hover {{ color:#58a6ff; }}
 .exalt-inline {{ font-size:0.8rem; color:#d29922; width:100%; padding:2px 0 0 88px; }}
 .exalt-inline a {{ color:#d29922; }}
-a {{ color:#58a6ff; text-decoration:none; }}
+a[title]:hover:after {{ content: attr(title); position:absolute; background:#1e1e2e; color:#e0e0e0; padding:4px 10px; border-radius:4px; font-size:0.8rem; white-space:nowrap; z-index:100; border:1px solid rgba(255,255,255,0.1); margin-top:20px; }}
+a {{ color:#58a6ff; text-decoration:none; position:relative; }}
 a:hover {{ text-decoration:underline; }}
 table {{ width:100%; border-collapse:collapse; margin:8px 0; }}
 th, td {{ padding:6px 10px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.85rem; }}
@@ -302,7 +303,7 @@ th {{ color:#d4a843; font-size:0.8rem; text-transform:uppercase; }}
 <h1>{name}'s Best-in-Slot</h1>
 <p class="page-subtitle">{classes} — Stat priority: {stat_prio}</p>
 {mn}
-<p class="page-subtitle"><span class="conf-eql">ON PATH</span> = drops in progression zone. <span class="conf-beta">off-path</span> = farm later. Score: AC×lvl_weight + primary_stat×2 + haste_bonus + on_path_bonus.</p>
+<p class="page-subtitle"><span class="conf-eql">ON PATH</span> = drops in progression zone. <span class="conf-beta">off-path</span> = farm later. Items link to <strong>max level (+10)</strong> view — hover over names for details. Score: AC×lvl_weight + primary_stat×2 + haste_bonus. Vendor items penalized -20.</p>
 {sections}
 {master}
 </div>
