@@ -170,38 +170,33 @@ def build_slot_section(combo_name, tier):
                 dp = f'<strong>{item["name"]}</strong>'
             st = stat_str(item, combo_name)
             
-            # Build tooltip showing stats at max level (+10)
-            def calc_max(val):
-                return int(val * 2.0) if val else 0
-            def haste_max(val):
-                return val + 10  # Haste increases by exactly +1% per tier
-            
+            # Build tooltip showing stats at max level (+10) - only max values
             tip_parts = []
-            ac_max = calc_max(item['ac'])
             if item['ac']:
-                tip_parts.append(f'AC {item["ac"]} → {ac_max}')
+                ac_max = int(item['ac'] * 2.0)
+                tip_parts.append(f'AC {ac_max}')
             if item['dmg'] and item['delay']:
-                dmg_max = calc_max(item['dmg'])
-                tip_parts.append(f'DMG {item["dmg"]} → {dmg_max}')
+                dmg_max = int(item['dmg'] * 2.0)
+                ratio = dmg_max / item['delay']
+                tip_parts.append(f'{dmg_max}/{item["delay"]} ({ratio:.2f})')
             for label, field in [('STR','strength'),('STA','stamina'),('AGI','agility'),('DEX','dexterity'),('WIS','wisdom'),('INT','intelligence'),('CHA','charisma')]:
                 v = item[field] or 0
                 if v:
-                    mv = calc_max(v)
-                    tip_parts.append(f'{label} +{v} → +{mv}')
+                    mv = int(v * 2.0)
+                    tip_parts.append(f'{label}+{mv}')
             if item['hp']:
-                hp_max = calc_max(item['hp'])
-                tip_parts.append(f'HP {item["hp"]} → {hp_max}')
+                hp_max = int(item['hp'] * 2.0)
+                tip_parts.append(f'HP{hp_max}')
             if item['mana']:
-                mn_max = calc_max(item['mana'])
-                tip_parts.append(f'Mana {item["mana"]} → {mn_max}')
-            # Haste: +1% per tier (verified: Mithril 2H: 31→41%, FBSS: 21→31%)
+                mn_max = int(item['mana'] * 2.0)
+                tip_parts.append(f'Mana{mn_max}')
             if combo_name in ["Dave","Brian","Jessy"]:
                 h = HASTE.get(item['name'], 0)
                 if h:
-                    hm = haste_max(h)
-                    tip_parts.append(f'Haste {h}% → {hm}%')
+                    hm = h + 10
+                    tip_parts.append(f'Haste {hm}%')
             
-            tip_text = ' | '.join(tip_parts) + ' at max level (+10 stats ×2.0)'
+            tip_text = ' | '.join(tip_parts) + ' at (+10)'
             st_display = f'<span class="stat" title="{tip_text}">{st}</span>'
             
             zo = item['zone']
