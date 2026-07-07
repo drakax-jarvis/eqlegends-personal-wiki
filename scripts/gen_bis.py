@@ -4,18 +4,24 @@ import sqlite3, os, json, re
 DB = '/home/hermes/eq-legends-wiki/eqlegends.db'
 OUT_DIR = '/home/hermes/eq-legends-wiki/pages/'
 
-def link(name):
+def link(name, zone=""):
     """Generate the correct link for an item, based on verified_links DB table."""
-    # Check DB for verified link
     conn = sqlite3.connect(DB)
     row = conn.execute("SELECT url FROM verified_links WHERE item_name=? AND source='eqlegendstools' AND status_code=200", (name,)).fetchone()
-    conn.close()
     if row:
-        return row[0]
+        conn.close(); return row[0]
     
-    # Fallback to eqlwiki
-    wiki_name = name.replace(' ', '_').replace("'", "%27")
-    return f'https://eqlwiki.com/{wiki_name}'
+    row = conn.execute("SELECT url FROM verified_links WHERE item_name=? AND source='eqlwiki' AND status_code=200", (name,)).fetchone()
+    if row:
+        conn.close(); return row[0]
+    
+    conn.close()
+    # Fallback to zone page on eqlwiki if available
+    if zone and zone not in ("Vendor", "Unknown"):
+        z = zone.replace(' ', '_')
+        return f'https://eqlwiki.com/{z}'
+    # Last resort: no link (item name only - doesn't exist on either site)
+    return None
 
 def eq(name):
     n = name.replace(' ', '_').replace("'", "%27")
@@ -150,7 +156,11 @@ def build_slot_section(combo_name, tier):
             if is_double and count > 1: sl = f'{sl} {idx+1}'
             on_path = item['on_path']
             pl = '<span class="conf-eql">ON PATH</span>' if on_path else '<span class="conf-beta">off-path</span>'
-            lk = link(item['name']); dp = f'<a href="{lk}" target="_blank"><strong>{item["name"]}</strong></a>'
+            lk = link(item['name'], item['zone'])
+            if lk:
+                dp = f'<a href="{lk}" target="_blank"><strong>{item["name"]}</strong></a>'
+            else:
+                dp = f'<strong>{item["name"]}</strong>'
             st = stat_str(item, combo_name); zo = item['zone']
             
             # Find matching exaltation for this slot
@@ -161,15 +171,27 @@ def build_slot_section(combo_name, tier):
                     if xi_val in used_xi: continue
                     used_xi.add(xi_val)
                     ent = x_data[xi_val]
-                    x_html = f'<div class="exalt-inline">→ Socket <strong>{ent[6]}: {ent[0]}</strong> from <a href="{link(ent[1])}">{ent[1]}</a> ({ent[2]})'
+                    src_link = link(ent[1])
+                    if src_link:
+                        x_html = f'<div class="exalt-inline">→ Socket <strong>{ent[6]}: {ent[0]}</strong> from <a href="{src_link}">{ent[1]}</a> ({ent[2]})'
+                    else:
+                        x_html = f'<div class="exalt-inline">→ Socket <strong>{ent[6]}: {ent[0]}</strong> from {ent[1]} ({ent[2]})'
                     if alt1 >= 0:
                         a1_name = x_data[alt1][0]
                         a1_src = x_data[alt1][1]
-                        x_html += f' | Alt: <a href="{link(a1_src)}">{a1_name}</a>'
+                        a1_link = link(a1_src)
+                        if a1_link:
+                            x_html += f' | Alt: <a href="{a1_link}">{a1_name}</a>'
+                        else:
+                            x_html += f' | Alt: {a1_name}'
                     if alt2 >= 0:
                         a2_name = x_data[alt2][0]
                         a2_src = x_data[alt2][1]
-                        x_html += f', <a href="{link(a2_src)}">{a2_name}</a>'
+                        a2_link = link(a2_src)
+                        if a2_link:
+                            x_html += f', <a href="{a2_link}">{a2_name}</a>'
+                        else:
+                            x_html += f', {a2_name}'
                     x_html += '</div>'
                     break
             
@@ -186,9 +208,12 @@ def build_master_table(combo_name):
     if not data: return ''
     rows = []
     for name, src, zone, npc, cls, lvl, etype, valid_slots in data:
-        src_link = f'<a href="{link(src)}" target="_blank">{src}</a>'
+        src_link_res = link(src)
+        src_display = f'<a href="{src_link_res}" target="_blank">{src}</a>' if src_link_res else src
+        zone_link = eq(zone)
+        zone_display = f'<a href="{zone_link}" target="_blank">{zone}</a>' if 'Unknown' not in zone else zone
         slot_str = ', '.join([s.replace('PRIMARY SECONDARY','Weapons').replace('_',' ').title() for s in valid_slots])
-        rows.append(f'<tr><td><strong>{name}</strong></td><td>{etype}</td><td>{src_link}</td><td><a href="{eq(zone)}" target="_blank">{zone}</a></td><td>{npc}</td><td>{cls}</td><td>L{lvl}+</td><td>{slot_str}</td></tr>')
+        rows.append(f'<tr><td><strong>{name}</strong></td><td>{etype}</td><td>{src_display}</td><td>{zone_display}</td><td>{npc}</td><td>{cls}</td><td>L{lvl}+</td><td>{slot_str}</td></tr>')
     return f'''<h2>Exaltation Source Reference</h2>
 <p>All exaltations recommended for {combo_name}, where to get them, and their requirements.</p>
 <table><tr><th>Effect</th><th>Type</th><th>Source Item</th><th>Zone</th><th>NPC</th><th>Classes</th><th>Min Level</th><th>Valid Slots</th></tr>
