@@ -5,9 +5,17 @@ DB = '/home/hermes/eq-legends-wiki/eqlegends.db'
 OUT_DIR = '/home/hermes/eq-legends-wiki/pages/'
 
 def link(name):
-    slug = name.lower().replace("'", "").replace(" ", "-").replace("--","-").strip("-")
-    slug = re.sub(r"[^a-z0-9-]", "", slug)
-    return f'https://eqlegendstools.com/items/{slug}/'
+    """Generate the correct link for an item, based on verified_links DB table."""
+    # Check DB for verified link
+    conn = sqlite3.connect(DB)
+    row = conn.execute("SELECT url FROM verified_links WHERE item_name=? AND source='eqlegendstools' AND status_code=200", (name,)).fetchone()
+    conn.close()
+    if row:
+        return row[0]
+    
+    # Fallback to eqlwiki
+    wiki_name = name.replace(' ', '_').replace("'", "%27")
+    return f'https://eqlwiki.com/{wiki_name}'
 
 def eq(name):
     n = name.replace(' ', '_').replace("'", "%27")
