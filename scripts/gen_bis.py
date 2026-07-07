@@ -165,10 +165,43 @@ def build_slot_section(combo_name, tier):
             pl = '<span class="conf-eql">ON PATH</span>' if on_path else '<span class="conf-beta">off-path</span>'
             lk = link(item['name'], item['zone'])
             if lk:
-                dp = f'<a href="{lk}" target="_blank" title="View {item["name"]} at max level (+10)"><strong>{item["name"]}</strong></a>'
+                dp = f'<a href="{lk}" target="_blank"><strong>{item["name"]}</strong></a>'
             else:
                 dp = f'<strong>{item["name"]}</strong>'
-            st = stat_str(item, combo_name); zo = item['zone']
+            st = stat_str(item, combo_name)
+            
+            # Build tooltip showing stats at max level (+10 = 100% bonus)
+            def calc_max(val):
+                return int(val * 2.0) if val else 0
+            
+            tip_parts = []
+            ac_max = calc_max(item['ac'])
+            if item['ac']:
+                tip_parts.append(f'AC {item["ac"]} → {ac_max}')
+            if item['dmg'] and item['delay']:
+                dmg_max = calc_max(item['dmg'])
+                tip_parts.append(f'DMG {item["dmg"]} → {dmg_max}')
+            for label, field in [('STR','strength'),('STA','stamina'),('AGI','agility'),('DEX','dexterity'),('WIS','wisdom'),('INT','intelligence'),('CHA','charisma')]:
+                v = item[field] or 0
+                if v:
+                    mv = calc_max(v)
+                    tip_parts.append(f'{label} +{v} → +{mv}')
+            if item['hp']:
+                hp_max = calc_max(item['hp'])
+                tip_parts.append(f'HP {item["hp"]} → {hp_max}')
+            if item['mana']:
+                mn_max = calc_max(item['mana'])
+                tip_parts.append(f'Mana {item["mana"]} → {mn_max}')
+            # Haste doesn't change with upgrades
+            if combo_name in ["Dave","Brian","Jessy"]:
+                h = HASTE.get(item['name'], 0)
+                if h:
+                    tip_parts.append(f'Haste {h}% (unchanged)')
+            
+            tip_text = ' | '.join(tip_parts) + ' at max level (+10 stats ×2.0)'
+            st_display = f'<span class="stat" title="{tip_text}">{st}</span>'
+            
+            zo = item['zone']
             
             # Find matching exaltation for this slot
             x_html = ''
@@ -207,7 +240,7 @@ def build_slot_section(combo_name, tier):
                 alts.append(f'<a href="{link(alt["name"])}">{alt["name"]}</a>')
             at = f' <span class="alt">(alt: {", ".join(alts[:2])})</span>' if alts else ''
             
-            html += f'<div class="bis-slot"><span class="slot-label">{sl}</span> {dp} <span class="stat">{st}</span> <span class="zone">{zo}</span> {pl}{at}{x_html}</div>\n'
+            html += f'<div class="bis-slot"><span class="slot-label">{sl}</span> {dp} {st_display} <span class="zone">{zo}</span> {pl}{at}{x_html}</div>\n'
     return html
 
 def build_master_table(combo_name):
@@ -281,15 +314,15 @@ def generate():
 .bis-slot {{ padding:6px 10px; border-bottom:1px solid rgba(255,255,255,0.06); font-size:0.9rem; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }}
 .bis-slot:hover {{ background:rgba(255,255,255,0.03); }}
 .slot-label {{ min-width:80px; font-weight:600; color:#d4a843; font-size:0.8rem; text-transform:uppercase; letter-spacing:0.03em; }}
-.stat {{ color:#8b949e; font-size:0.85rem; }}
+.stat {{ color:#8b949e; font-size:0.85rem; cursor:help; }}
+.stat[title]:hover {{ text-decoration:underline; text-decoration-style:dotted; }}
 .zone {{ color:#58a6ff; font-size:0.8rem; }}
 .alt {{ color:#6e7681; font-size:0.8rem; font-style:italic; }}
 .alt a {{ color:#6e7681; text-decoration:underline dotted; }}
 .alt a:hover {{ color:#58a6ff; }}
 .exalt-inline {{ font-size:0.8rem; color:#d29922; width:100%; padding:2px 0 0 88px; }}
 .exalt-inline a {{ color:#d29922; }}
-a[title]:hover:after {{ content: attr(title); position:absolute; background:#1e1e2e; color:#e0e0e0; padding:4px 10px; border-radius:4px; font-size:0.8rem; white-space:nowrap; z-index:100; border:1px solid rgba(255,255,255,0.1); margin-top:20px; }}
-a {{ color:#58a6ff; text-decoration:none; position:relative; }}
+a {{ color:#58a6ff; text-decoration:none; }}
 a:hover {{ text-decoration:underline; }}
 table {{ width:100%; border-collapse:collapse; margin:8px 0; }}
 th, td {{ padding:6px 10px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.08); font-size:0.85rem; }}
