@@ -119,10 +119,16 @@ def stat_str(r, combo_name):
     for l,f in [('FR','sv_fire'),('CR','sv_cold'),('MR','sv_magic'),('DR','sv_disease'),('PR','sv_poison')]:
         if r[f]: rs.append(f'{l}+{r[f]}')
     if rs: parts.append('('+','.join(rs)+')')
+    try:
+        if r['_lore']: parts.append('🏛️Lore')
+    except (KeyError, IndexError):
+        pass
     return ', '.join(parts) if parts else '—'
 
 def build_slot_section(combo_name, tier):
-    rows = q("""SELECT i.*, d.zone, d.npc, d.on_path, d.path_order FROM combo_items ci JOIN items i ON ci.item_id=i.id JOIN drops d ON d.item_id=i.id WHERE ci.combo_id=(SELECT id FROM combos WHERE name=?) AND ci.tier=? ORDER BY d.path_order""", (combo_name, tier))
+    rows = q("""SELECT i.*, d.zone, d.npc, d.on_path, d.path_order,
+        CASE WHEN i.name IN (SELECT item_name FROM item_lore) THEN 1 ELSE 0 END as _lore
+    FROM combo_items ci JOIN items i ON ci.item_id=i.id JOIN drops d ON d.item_id=i.id WHERE ci.combo_id=(SELECT id FROM combos WHERE name=?) AND ci.tier=? ORDER BY d.path_order""", (combo_name, tier))
     if not rows: return ''
     
     slots = {}
