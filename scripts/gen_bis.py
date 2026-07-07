@@ -44,6 +44,7 @@ def slot_rank(s):
 COMBO_CONFIG = {
     "Dave":{"p":"charisma","s":"wisdom"}, "Christy":{"p":"wisdom","s":"intelligence"},
     "Brian":{"p":"strength","s":"stamina"}, "Jessy":{"p":"strength","s":"wisdom"},
+    "David":{"p":"strength","s":"wisdom"},
 }
 HASTE = {"Mithril Two-Handed Sword":31,"Flowing Black Silk Sash (FBSS)":21,"Flowing Black Silk Sash":21,"Kitchen Toolbelt":10,"Sporali Gloves":9}
 
@@ -90,7 +91,7 @@ def calc_score(item_row, combo_name, tier):
     secondary = item_row[cfg['s']] or 0
     hp = item_row['hp'] or 0; mana = item_row['mana'] or 0
     score = (ac*lw) + (primary*2) + (hp//10) + (mana//10) + secondary
-    if combo_name in ["Dave","Brian","Jessy"]:
+    if combo_name in ["Dave","Brian","Jessy","David"]:
         score += HASTE.get(item_row['name'], 0)
     if item_row['on_path']: score += 5
     # Vendor penalty
@@ -111,7 +112,7 @@ def stat_str(r, combo_name):
         if r[f]: parts.append(f'{l}+{r[f]}')
     if r['hp']: parts.append(f'HP+{r["hp"]}')
     if r['mana']: parts.append(f'Mana+{r["mana"]}')
-    if combo_name in ["Dave","Brian","Jessy"]:
+    if combo_name in ["Dave","Brian","Jessy","David"]:
         h = HASTE.get(r['name'],0)
         if h: parts.append(f'{h}% Haste')
     rs = []
@@ -190,7 +191,7 @@ def build_slot_section(combo_name, tier):
             if item['mana']:
                 mn_max = int(item['mana'] * 2.0)
                 tip_parts.append(f'Mana{mn_max}')
-            if combo_name in ["Dave","Brian","Jessy"]:
+            if combo_name in ["Dave","Brian","Jessy","David"]:
                 h = HASTE.get(item['name'], 0)
                 if h:
                     hm = h + 10
@@ -296,7 +297,7 @@ def generate():
         
         master = build_master_table(name)
         
-        if name in ["Dave","Brian","Jessy"]:
+        if name in ["Dave","Brian","Jessy","David"]:
             mn = '<p class="page-subtitle"><strong>Dual Wield:</strong> PRIMARY + SECONDARY 1H weapons. <strong>ANY 1:</strong> Mithril 2H Sword (31% haste). <strong>ANY 2:</strong> Shield (AC + exaltations). Never use a 2H weapon in PRIMARY.</p>'
         else:
             mn = '<p class="page-subtitle"><strong>Caster Setup:</strong> 1H weapon + Shield or Staff. Mana regen > raw INT for uptime.</p>'
