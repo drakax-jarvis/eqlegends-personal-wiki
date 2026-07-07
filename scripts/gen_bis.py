@@ -170,9 +170,11 @@ def build_slot_section(combo_name, tier):
                 dp = f'<strong>{item["name"]}</strong>'
             st = stat_str(item, combo_name)
             
-            # Build tooltip showing stats at max level (+10 = 100% bonus)
+            # Build tooltip showing stats at max level (+10)
             def calc_max(val):
                 return int(val * 2.0) if val else 0
+            def haste_max(val):
+                return val + 10  # Haste increases by exactly +1% per tier
             
             tip_parts = []
             ac_max = calc_max(item['ac'])
@@ -192,11 +194,12 @@ def build_slot_section(combo_name, tier):
             if item['mana']:
                 mn_max = calc_max(item['mana'])
                 tip_parts.append(f'Mana {item["mana"]} → {mn_max}')
-            # Haste doesn't change with upgrades
+            # Haste: +1% per tier (verified: Mithril 2H: 31→41%, FBSS: 21→31%)
             if combo_name in ["Dave","Brian","Jessy"]:
                 h = HASTE.get(item['name'], 0)
                 if h:
-                    tip_parts.append(f'Haste {h}% (unchanged)')
+                    hm = haste_max(h)
+                    tip_parts.append(f'Haste {h}% → {hm}%')
             
             tip_text = ' | '.join(tip_parts) + ' at max level (+10 stats ×2.0)'
             st_display = f'<span class="stat" title="{tip_text}">{st}</span>'
